@@ -80,6 +80,11 @@ resource "aws_route_table" "terraform_lb_rt" {
     }
 }
 
+resource "aws_route_table_association" "rt_association_lb_rt" {
+    route_table_id = aws_route_table.terraform_lb_rt.id
+    subnet_id = aws_subnet.terraform_subnet_1.id
+}
+
 resource "aws_security_group" "terraform_sg_lb" {
     vpc_id = aws_vpc.terraform_vpc.id
 }
