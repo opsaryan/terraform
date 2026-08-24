@@ -16,7 +16,7 @@ terraform {
 }
 
 provider "aws" {
-    region = "ap-south-1"
+    region = var.region
 }
 
 resource "aws_s3_bucket" "terraform_state" {
@@ -158,8 +158,8 @@ resource "aws_security_group_rule" "terraform_sg_instance_egress" {
 }
 
 resource "aws_instance" "instance_1" {
-    ami = "ami-006f82a1d5a27da54"
-    instance_type = "t3.micro"
+    ami = var.app_ami
+    instance_type = var.app_instance_type
     # security_groups = [ aws_security_group.terraform_sg_instances.name ]
     subnet_id = aws_subnet.terraform_subnet_1.id
     vpc_security_group_ids = [ aws_security_group.terraform_sg_instances.id ]
@@ -171,8 +171,8 @@ resource "aws_instance" "instance_1" {
 }
 
 resource "aws_instance" "instance_2" {
-    ami = "ami-006f82a1d5a27da54"
-    instance_type = "t3.micro"
+    ami = var.app_ami
+    instance_type = var.app_instance_type
     # security_groups = [ aws_security_group.terraform_sg_instances.name ]
     subnet_id = aws_subnet.terraform_subnet_1.id
     vpc_security_group_ids = [ aws_security_group.terraform_sg_instances.id ]
@@ -248,12 +248,12 @@ resource "aws_lb_listener_rule" "lb_listener_rule" {
 }
 
 resource "aws_route53_zone" "primary" {
-    name = "zaren.me"
+    name = var.app_domain
 }
 
 resource "aws_route53_record" "root" {
     zone_id = aws_route53_zone.primary.zone_id
-    name = "zaren.me"
+    name = var.app_domain
     type = "A"
 
     alias {
