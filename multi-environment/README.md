@@ -1,7 +1,7 @@
-# 05 - Modular 3 tier app with staging and production
+# Modular 3 tier app with staging and production
 
-Takes the infrastructure from `03` (vpc, load balancer, servers, route53) and the
-module practices from `04`, and splits it into a `global` directory plus one
+Takes the infrastructure from `three-tier-app-single-file` (vpc, load balancer, servers, route53) and the
+module practices from `modules-and-dry`, and splits it into a `global` directory plus one
 directory per environment.
 
 ## Infrastructure
@@ -60,7 +60,7 @@ with a `data` block instead of creating their own.
 ## Layout
 
 ```
-05/
+multi-environment/
 ├── modules/
 │   ├── network/          vpc, subnets, internet gateway, route table
 │   ├── compute/          servers and their security group
